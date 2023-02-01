@@ -12,6 +12,14 @@
   width: 30em;
 }
 
+label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

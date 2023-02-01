@@ -6,6 +6,12 @@ import { ReactDOM } from 'react';
 class Task extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      value: '',
+      name: '',
+      id: '',
+      type: '',
+    }
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -23,23 +29,31 @@ class Task extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
   }
+
+  render() {
+    return (
+      <label htmlFor = {this.props.id}>
+      {this.props.name}
+      <input type = {this.props.type} id = {this.props.id} name = {this.props.name} onChange = {this.handleChange}></input>
+      </label>
+    )
+  }
 }
 
 function App() {
   return (
     <div className="App">
       <form className='form'>
-        <input type = 'text' id = 'title' name = 'title' onChange={this.handleChange}></input>
-        <label htmlFor = 'title'>Title</label>
-        <textarea type = 'text' id = 'desc' name = 'desc' onChange={this.handleChange}></textarea>
-        <label htmlFor = 'desc'>Description</label>
-        <input type = 'datetime-local' id = 'date' name = 'date' onChange={this.handleChange}></input>
-        <label htmlFor = 'date'>Date and time</label>
-        <select id = 'prio' name = 'prio' onChange={this.handleChange}>
+        <Task type={'text'} id={'title'} name={'Title'}/>
+        <Task type={'textarea'} id={'desc'} name={'Description'}/>
+        <Task type={'datetime-local'} id={'date'} name={'Date'}/>
+        <label htmlFor = 'prio'>Priority
+        <select id = 'prio' name = 'prio'>
           <option value = 'High'>High</option>
           <option value = 'Mid'>Mid</option>
           <option value = 'Low'>Low</option>
         </select>
+        </label>
         <input type = 'submit' value = 'Submit'></input>
       </form>
     </div>
