@@ -7,31 +7,31 @@ import Overview from './components/Overview';
 class Task extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: '',
-      name: '',
-      id: '',
-      type: '',
-    }
+    // this.state = {
+    //   value: '',
+    //   name: '',
+    //   id: '',
+    //   type: '',
+    // }
 
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event) {
-    const value = event.target.value;
-    const name = event.target.name;
+  // handleChange(event) {
+  //   const value = event.target.value;
+  //   const name = event.target.name;
 
-    this.setState({
-      [name]: value
-    },
-    console.log(value));
-  }
+  //   this.setState({
+  //     [name]: value
+  //   },
+  //   console.log(value));
+  // }
 
   render() {
     return (
       <label htmlFor = {this.props.id}>
       {this.props.name}
-      <input type = {this.props.type} id = {this.props.id} name = {this.props.name} onInput = {this.handleChange}></input>
+      <input type = {this.props.type} id = {this.props.id} name = {this.props.name} onChange = {this.props.onChange}></input>
       </label>
     )
   }
@@ -66,9 +66,9 @@ function App() {
   return (
     <div className="App">
       <form className='form' onSubmit={e => e.preventDefault()}>
-        <Task type={'text'} id={'title'} name={'title'} onInput = {(e) => {setTitle(e.target.value)}}/>
-        <Task type={'textarea'} id={'desc'} name={'description'} onInput = {e => setDesc(e.target.value)}/>
-        <Task type={'datetime-local'} id={'date'} name={'date'} onInput = {e => setDate(e.target.value)}/>
+        <Task type={'text'} id={'title'} name={'title'} onChange = {(e) => {setTitle(e.target.value)}}/>
+        <Task type={'textarea'} id={'desc'} name={'description'} onChange = {e => setDesc(e.target.value)}/>
+        <Task type={'datetime-local'} id={'date'} name={'date'} onChange = {e => setDate(e.target.value)}/>
         <label htmlFor = 'prio'>Priority
         <select id = 'prio' name = 'prio' onChange = {e => setPrio(e.target.value)}>
           <option value = 'High'>High</option>
