@@ -42,11 +42,12 @@ function App() {
   const [desc, setDesc] = useState('');
   const [date, setDate] = useState('');
   const [prio, setPrio] = useState('');
+  const tasks = [];
   // const titleContainer = useRef();
   // const descContainer = useRef();
   // const dateContainer = useRef();
   // const prioContainer = useRef();
-  const overview = ReactDOM.createRoot(document.getElementById('overview'));
+  const overview = document.getElementById('overview');
   // lift state to be sent to an array that will pass tasks into the generator
   function handleSubmit(e) {
     e.preventDefault();
@@ -59,10 +60,25 @@ function App() {
     // setDate(dateContainer.value);
     // setPrio(prioContainer.value);
     console.log(`${title}, ${desc}, ${date}, ${prio}`);
-    overview.render(
-      <Overview title = {title} desc = {desc}  date = {date} prio = {prio}/>
-    )
+    if (!title || !desc || !date || !prio) return;
+    tasks.push({
+      title: {title},
+      desc: {desc},
+      date: {date},
+      prio: {prio},
+    });    
+    console.log(`tasks: `, tasks);
   }
+  const GenerateAll = ({tasks}) => (
+    <div>
+      {tasks.map(task => (
+        <div key={task.title}>
+        {console.log(task)}
+        <Overview title = {task.title} desc = {task.desc}  date = {task.date} prio = {task.prio}/>
+        </div>
+      ))}
+    </div>
+  );
   return (
     <div className="App">
       <form className='form' onSubmit={e => e.preventDefault()}>
@@ -78,6 +94,9 @@ function App() {
         </label>
         <button type = 'button' onClick={handleSubmit}>Submit</button>
       </form>
+      <div>
+    </div>
+    <GenerateAll tasks={tasks} />
     </div>
   );
 }
