@@ -5,28 +5,6 @@ import ReactDOM from 'react-dom/client';
 import Overview from './components/Overview';
 
 class Task extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   value: '',
-    //   name: '',
-    //   id: '',
-    //   type: '',
-    // }
-
-    // this.handleChange = this.handleChange.bind(this);
-  }
-
-  // handleChange(event) {
-  //   const value = event.target.value;
-  //   const name = event.target.name;
-
-  //   this.setState({
-  //     [name]: value
-  //   },
-  //   console.log(value));
-  // }
-
   render() {
     return (
       <label htmlFor = {this.props.id}>
@@ -38,47 +16,30 @@ class Task extends React.Component {
 }
 
 function App() {
+  const taskList = [];
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [date, setDate] = useState('');
   const [prio, setPrio] = useState('');
-  const tasks = [];
-  // const titleContainer = useRef();
-  // const descContainer = useRef();
-  // const dateContainer = useRef();
-  // const prioContainer = useRef();
-  const overview = document.getElementById('overview');
-  // lift state to be sent to an array that will pass tasks into the generator
+  const [tasks, setTasks] = useState(taskList);
   function handleSubmit(e) {
     e.preventDefault();
-      // setTitle(document.querySelector('#title').value);
-      // setDesc(document.querySelector('#desc').value);
-      // setDate(document.querySelector('#date').value);
-      // setPrio(document.querySelector('#prio').value);
-    // setTitle(titleContainer.value);
-    // setDesc(descContainer.value);
-    // setDate(dateContainer.value);
-    // setPrio(prioContainer.value);
     console.log(`${title}, ${desc}, ${date}, ${prio}`);
     if (!title || !desc || !date || !prio) return;
-    tasks.push({
-      title: {title},
-      desc: {desc},
-      date: {date},
-      prio: {prio},
-    });    
+    setTasks(oldArray => [...oldArray, <Overview title = {title} desc = {desc} date = {date} prio = {prio}/>
+  ]);    
     console.log(`tasks: `, tasks);
   }
-  const GenerateAll = ({tasks}) => (
-    <div>
-      {tasks.map(task => (
-        <div key={task.title}>
-        {console.log(task)}
-        <Overview title = {task.title} desc = {task.desc}  date = {task.date} prio = {task.prio}/>
-        </div>
-      ))}
-    </div>
-  );
+  // function GenerateAll(tasks) { 
+  //   return (
+  //   <div>
+  //     {tasks.map((task, index) => (
+  //       <div key={index}>
+  //       {task}
+  //       </div>
+  //     ))}
+  //   </div>
+  //   )};
   return (
     <div className="App">
       <form className='form' onSubmit={e => e.preventDefault()}>
@@ -96,7 +57,7 @@ function App() {
       </form>
       <div>
     </div>
-    <GenerateAll tasks={tasks} />
+    <Overview tasks={tasks} />
     </div>
   );
 }
